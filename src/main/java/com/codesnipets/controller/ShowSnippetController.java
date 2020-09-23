@@ -61,7 +61,7 @@ public class ShowSnippetController{
 	 * return HTML page for showing the list of snippets
 	 */	
 	@GET
-	@Path("/showList")
+	@Path("/getJson/showList")
 	public Response showtList(@Context ServletContext context) {
 		
 	    UriBuilder uriBuilder = UriBuilder.fromUri(URI.create(context.getContextPath()));
@@ -92,7 +92,7 @@ public class ShowSnippetController{
 	/**
 	 * Searching for a keyword
 	 */
-	@Path("/search/{keyword}")
+	@Path("/getJson/search/{keyword}")
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Map<String, CodeSnippets>searchSnippet(@PathParam("keyword") String keyword) {
@@ -122,7 +122,7 @@ public class ShowSnippetController{
 	 * Filtering snippet by a date or programming Language
 	 * YYYY-MM-DD format only at the moment, but can be converted to any Date Format.
 	 */
-	@Path("/filter/{filter}") //YYYY-MM-DD format only at the moment, but can be converted to any Date Format.
+	@Path("/getJson/filter/{filter}") //YYYY-MM-DD format only at the moment, but can be converted to any Date Format.
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Map<String, CodeSnippets> FilterSnippetByDate(@PathParam("filter") String filter) {
