@@ -1,5 +1,5 @@
-# CodeSnippetRestApi
-A java-based REST API, which creates a code-snippet with following functionalities: 
+# CodeSnippetsRestApi
+A java-based and gradle REST API project, which creates a code-snippet with following functionalities: 
 
 1. Provides option for creating code snippets of multiple languages such as Java, Python, Javascript and etc.
 
