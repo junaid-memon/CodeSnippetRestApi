@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Create Code Snippets</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+	<form class="form validate-form" action="rest/SubmitSnippet/add" method="post">
+		<span class="form-title">
+			Create Code Snippets
+		</span>
+		<div class="wrap-input100 rs1-wrap-input100 validate-input" data-validate="Name is required">
+			<span class="label-input100">Name</span>
+				<input class="input100" type="text" name="name" placeholder="Enter snippet name">
+			<span class="focus-input100"></span>
+		</div>
+		<div class="wrap-input100 rs1-wrap-input100 validate-input">
+			<span class="label-input100">Description</span>
+				<input class="input100" type="text" name="description" placeholder="Enter snippet description">
+			<span class="focus-input100"></span>
+		</div>
+		<div class="wrap-input100 rs1-wrap-input100 validate-input">
+			<span class="label-input100">Select Language:</span>
+				<select id="language" name="language">
+				<option value="" disabled selected>Choose language</option>
+				<option>C#</option>
+				<option>Java</option>
+				<option>JavaScript</option>
+				<option>PHP</option>
+				<option>Python</option>
+				<option>Text</option>
+				</select>
+			<span class="focus-input100"></span>
+		</div>
+		<div class="wrap-input100 validate-input" data-validate = "Snippet is required">
+			<span class="label-input100">Snippet</span>
+				<textarea class="input100" name="snippet" placeholder="Your code here.."></textarea>
+			<span class="focus-input100"></span>
+			
+		</div>
+		<div class="container-contact100-form-btn">
+			<input type="submit" class="contact100-form-btn" name="submit" placeholder="Submit">
+			<div>
+				<input style="margin-left:30px;" type="checkbox" name="privacy" value="privacy">
+				<p style="margin-left:30px">Make Code Snippet Private</p>
+			</div>
+		</div>
+		
+	</form>
+</body>
+</html>

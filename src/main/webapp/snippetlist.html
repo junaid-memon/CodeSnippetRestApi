@@ -1,0 +1,97 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+<div style="text-align:right;margin-top:20px">
+	<select class="paginate">
+		<option value="" disabled selected>Choose List Size:</option>
+		<option>2</option>
+		<option>60</option>
+		<option>80</option>
+		<option>100</option>
+	</select>
+</div>
+<h3> Code Snippets: </h3>
+ <div class="row" id="row">
+</div>
+</div>
+</body>
+<script type='text/javascript'>
+	var results = "";
+	var secret = new Map();
+	var searchUrl = window.location.href;
+	var urlParams = new URL(searchUrl);
+	var pageSize = urlParams.searchParams.get("lists");
+	
+	$.get("/CodeSnippetsRestApi/rest/ShowSnippet/getJson/paginate/"+pageSize,function(data){
+	  results = JSON.parse(JSON.stringify(data));
+	 
+	  /**
+	  * Listing the Code Snippets
+	  */
+	  var row = document.getElementById("row");
+	  for (var Id in results) {
+		  var div = document.createElement("div");
+		  div.setAttribute("id", "row-sm-4");
+		  div.setAttribute("class", "row-sm-4");
+		  div.setAttribute("style", "border-style:outset;margin-top:10px");
+		  
+		  var button = document.createElement("Button");
+		  button.innerHTML= "Delete Snippet";
+		  button.setAttribute("style", "margin-left:10px;margin-bottom:5px;margin-top:10px;border-radius: 12px;")
+		  button.setAttribute("class", "delete")
+		  button.setAttribute("data-id", Id);
+		  
+		  for (var key in results[Id]) {
+			  if (key == "snippet" && results[Id]["privacy"] == "null"){
+				  console.log(key +"-"+results[Id] )
+				  secret.set(Id, results[Id]["secret"]);
+				  var p = document.createElement("p");
+				  p.setAttribute("style", "margin-left:10px")
+				  p.innerHTML = "<b>Language: </b>"+results[Id]["language"]+"<br><br>"
+				  				+ results[Id][key].replace("\r\n", "<br>") + "<br><br>"
+				  				+ "<b>Created on: </b>" + results[Id]["createdTime"];  
+				  $(div).append(p);  
+				  $(div).append(button);
+				  $(row).append(div);
+			  }
+			}
+		}
+	  
+	  /**
+	  * Deleting the code snippet
+	  */
+	  $('.delete').click(function(){
+		  var sec = ""
+		  var input = prompt("Enter Secret to Delete", "b3b4dad3");
+		  var Id = $(this).data('id'); 
+		  console.log(Id)
+		  for (var [key, value] of secret) {
+			  console.log(key+ "-" +value);
+			  if (key == Id && input == value)
+				  sec = value;
+			}
+		  $.ajax({
+			    type: "DELETE",
+			    url: "/CodeSnippetsRestApi/rest/ShowSnippet/getJson/delete/"+sec,
+			    success: function() {   
+			        location.reload();  
+			    }
+			}); 
+	  });
+	  
+	  /**
+	   * Increase Page Size
+	   */
+	  $(".paginate").change(function(){
+	      var size = $(this).children("option:selected").val();
+	      pageSize = size;
+	      window.location.assign("/CodeSnippetsRestApi/snippetlist.html?lists="+pageSize); 
+	  });
+});
+</script>
+</html>
